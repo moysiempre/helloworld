@@ -4,11 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-    - main
-
-env:
-  AZURE_WEBAPP_NAME: HelloWordAPI
-  AZURE_WEBAPP_PACKAGE_PATH: "./publish"
+    - main 
 
 jobs:
   publish:
@@ -23,12 +19,12 @@ jobs:
           dotnet-version: '7.0.x'
           
       - name: Restore
-        run: dotnet restore ./HelloWordAPI.sln
+        run: dotnet restore ./HelloWordAPI/HelloWordAPI.sln
         
       - name: Build
-        run: dotnet build ./HelloWordAPI.sln --configuration Release --no-restore
+        run: dotnet build ./HelloWordAPI/HelloWordAPI.sln --configuration Release --no-restore
         
       - name: Publish
-        run: dotnet publish ./HelloWordAPI.sln --configuration Release --no-build  
+        run: dotnet publish ./HelloWordAPI/HelloWordAPI.sln --configuration Release --no-build  
         
  
