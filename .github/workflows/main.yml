@@ -1,0 +1,34 @@
+name: Publish 🚀
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+    - main
+
+env:
+  AZURE_WEBAPP_NAME: HelloWordAPI
+  AZURE_WEBAPP_PACKAGE_PATH: "./publish"
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '7.0.x'
+          
+      - name: Restore
+        run: dotnet restore ./HelloWordAPI.sln
+        
+      - name: Build
+        run: dotnet build ./HelloWordAPI.sln --configuration Release --no-restore
+        
+      - name: Publish
+        run: dotnet publish ./HelloWordAPI.sln --configuration Release --no-build  
+        
+ 
